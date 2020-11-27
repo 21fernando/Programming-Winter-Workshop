@@ -3,8 +3,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +14,7 @@ public class Simulation extends Application {
 
     private Robot robot;
     private Pane root;
-    private Obj avatar;
+    private Avatar avatar;
     private double angularVel; // deg/sec
     private double acc;
     private double t;
@@ -27,7 +25,7 @@ public class Simulation extends Application {
     public Simulation(){
         robot = new Robot(new double[]{300,100}, 40, 0, 0, 0);
         root = new Pane();
-        avatar = new Obj(robot, robot.getSize(), Color.AQUAMARINE);
+        avatar = new Avatar(robot, robot.getSize(), Color.AQUAMARINE);
         angularVel = 0;
         acc = 0;
         t=0;
@@ -48,8 +46,8 @@ public class Simulation extends Application {
         return root;
     }
 
-    private List<Obj> robots(){
-        return root.getChildren().stream().map(n->(Obj)n).collect(Collectors.toList());
+    private List<Avatar> robots(){
+        return root.getChildren().stream().map(n->(Avatar)n).collect(Collectors.toList());
     }
 
     private void update(){
@@ -95,59 +93,6 @@ public class Simulation extends Application {
         primaryStage.setTitle("Transitions");
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    private static class Obj extends Rectangle{
-        private Robot r;
-        private int size;
-        private Line vel;
-
-        /**
-         * Class for the graphics related to the robot graphic
-         * @param r robot object associated with this graphics object
-         * @param size size of the robot to be drawn
-         * @param c color of the robot
-         */
-        public Obj(Robot r,int size, Color c){
-            super(size, size, c);
-            this.r = r;
-            setX(r.getSpawnX()-(size/2.0));
-            setY(r.getSpawnY()-(size/2.0));
-            this.size = size;
-            vel = new Line(this.r.getSpawnX(),this.r.getSpawnY(),this.r.getSpawnX(),this.r.getSpawnY());
-            vel.setFill(Color.BLACK);
-        }
-
-        /**
-         * moves the robot and velocity vector
-         * @param a acceleration applied to the robot
-         * @param t angular velocity applied to the robot
-         */
-        public void move(double a, double t){
-            r.rotate(t);
-            Rotate rotate = new Rotate(r.getAngularVelocity(), getX()+size/2.0, getY()+size/2.0);
-            rotate.setAngle(r.getAngularVelocity());
-            getTransforms().addAll(rotate);
-            r.move(a);
-            setY(getY() + r.getVelocity());
-            vel.setStartX(r.getXPos());
-            vel.setStartY(r.getYPos());
-            vel.setEndX(r.getXPos() + -10*r.getVelocity()*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));
-            vel.setEndY(r.getYPos() + -10*r.getVelocity()*Math.sin(Math.toRadians(r.getHeading())-(Math.PI/2)));
-        }
-
-        /**
-         * Accessor method for robot's velocity vector
-         * @return Robot's velocity vector Line object
-         */
-        public Line getVel(){
-            return this.vel;
-        }
-
-    }
-
-    private static double[] rotateVector(double[] in, double theta){
-        return new double[]{in[0]*Math.cos(theta) - in[1]*Math.sin(theta),in[0]*Math.sin(theta) + in[1]*Math.cos(theta)};
     }
 
     /**
