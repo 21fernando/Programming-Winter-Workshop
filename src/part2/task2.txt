@@ -1,0 +1,1 @@
+Using bang-bang control, let the robot find the target

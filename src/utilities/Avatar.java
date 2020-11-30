@@ -1,11 +1,14 @@
+package utilities;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 public class Avatar extends Rectangle {
-    private Robot r;
-    private int size;
-    private Arrow vel;
+
+    private final RobotBase r;
+    private final int size;
+    private final Arrow vel;
 
     /**
      * Class for the graphics related to the robot graphic
@@ -13,7 +16,7 @@ public class Avatar extends Rectangle {
      * @param size size of the robot to be drawn
      * @param c color of the robot
      */
-    public Avatar(Robot r, int size, Color c){
+    public Avatar(RobotBase r, int size, Color c){
         super(size, size, c);
         this.r = r;
         setX(r.getSpawnX()-(size/2.0));
@@ -28,15 +31,13 @@ public class Avatar extends Rectangle {
 
     /**
      * moves the robot and velocity vector
-     * @param a acceleration applied to the robot
-     * @param t angular velocity applied to the robot
      */
-    public void move(double a, double t){
-        r.rotate(t);
+    public void move(){
+        r.rotate();
+        r.move();
         Rotate rotate = new Rotate(r.getAngularVelocity(), getX()+size/2.0, getY()+size/2.0);
         rotate.setAngle(r.getAngularVelocity());
         getTransforms().addAll(rotate);
-        r.move(a);
         setY(getY() + r.getVelocity());
         vel.setStartX(r.getXPos());
         vel.setStartY(r.getYPos());

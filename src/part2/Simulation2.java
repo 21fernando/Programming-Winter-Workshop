@@ -1,4 +1,4 @@
-package part1;
+package part2;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.Avatar;
+import utilities.Target;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,9 +15,10 @@ import java.util.stream.Collectors;
 /**
  * Class simulates the motion of a robot
  */
-public class Simulation1 extends Application {
+public class Simulation2 extends Application {
 
-    private final Robot1 robot;
+    private final Robot2 robot;
+    private final Target target;
     private final Pane root;
     private final Avatar avatar;
     private final double angularVel; // deg/sec
@@ -26,10 +28,11 @@ public class Simulation1 extends Application {
     /**
      * Constructor for the simulation
      */
-    public Simulation1(){
-        robot = new Robot1(new double[]{300,100}, 40);
+    public Simulation2(){
+        robot = new Robot2(new double[]{300,100}, 40);
         root = new Pane();
         avatar = new Avatar(robot, robot.getSize(), Color.AQUAMARINE);
+        target = new Target(300,300,0,20, Color.RED);
         angularVel = 0;
         acc = 0;
         t=0;
@@ -39,7 +42,7 @@ public class Simulation1 extends Application {
         root.setPrefSize(600,600);
         root.setMinSize(600,600);
         root.setMaxSize(600,600);
-        root.getChildren().addAll(avatar, avatar.getVel());
+        root.getChildren().addAll(avatar, avatar.getVel(), target, target.getVel());
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -57,6 +60,7 @@ public class Simulation1 extends Application {
     private void update(){
         t+=0.016;
         avatar.move();
+        target.move();
     }
 
     /**
@@ -68,15 +72,33 @@ public class Simulation1 extends Application {
         Scene scene = new Scene(createContent());
         scene.setOnKeyPressed(e->{
             switch(e.getCode()){
-                //TODO: Write code for key presses
+                case LEFT:
+                    robot.setAngularVelocity(-3);
+                    break;
+                case RIGHT:
+                    robot.setAngularVelocity(3);
+                    break;
+                case UP:
+                    robot.setAcceleration(-0.4);
+                    break;
+                case DOWN:
+                    robot.setAcceleration(0.4);
+                    break;
             }
         });
         scene.setOnKeyReleased(e->{
             switch(e.getCode()){
-                //TODO: Write code for key releases
+                case LEFT:
+                case RIGHT:
+                    robot.setAngularVelocity(0);
+                    break;
+                case UP:
+                case DOWN:
+                    robot.setAcceleration(0);
+                    break;
             }
         });
-        primaryStage.setTitle("Simulation 1");
+        primaryStage.setTitle("Simulation 2");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -86,7 +108,7 @@ public class Simulation1 extends Application {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        Simulation1 t = new Simulation1();
+        Simulation2 t = new Simulation2();
         launch(args);
     }
 }

@@ -1,0 +1,74 @@
+Robot code:
+
+override fun rotate() {
+    if(angularVelocity>terminalAngularVelocity){
+        angularVelocity = terminalAngularVelocity
+    }
+    if(angularVelocity<(-1*terminalAngularVelocity)){
+        angularVelocity = -1*terminalAngularVelocity
+    }
+    heading += angularVelocity
+    if(heading>=360){
+        heading-=360
+    }else if(heading<0){
+        heading+=360
+    }
+}
+
+override fun move() {
+    if(canMove(acceleration)){
+        netAcceleration = acceleration + calculateFriction()
+        velocity += netAcceleration
+        if(velocity>terminalVelocity){
+            velocity = terminalVelocity
+        }
+        if(velocity<(-1*terminalVelocity)){
+            velocity = -1*terminalVelocity
+        }
+        absoluteVelocity[0] = velocity* cos(Math.toRadians(heading) - PI /2)
+        absoluteVelocity[1] = velocity* sin(Math.toRadians(heading) - PI /2)
+        xPos -= absoluteVelocity[0]
+        yPos -= absoluteVelocity[1]
+
+    }
+    else{
+        velocity = 0.0
+    }
+}
+
+Simulation code:
+@Override
+public void start(Stage primaryStage){
+    Scene scene = new Scene(createContent());
+    scene.setOnKeyPressed(e->{
+        switch(e.getCode()){
+            case LEFT:
+                robot.setAngularVelocity(-3);
+                break;
+            case RIGHT:
+                robot.setAngularVelocity(3);
+                break;
+            case UP:
+                robot.setAcceleration(-0.4);
+                break;
+            case DOWN:
+                robot.setAcceleration(0.4);
+                break;
+        }
+    });
+    scene.setOnKeyReleased(e->{
+        switch(e.getCode()){
+            case LEFT:
+            case RIGHT:
+                robot.setAngularVelocity(0);
+                break;
+            case UP:
+            case DOWN:
+                robot.setAcceleration(0);
+                break;
+        }
+    });
+    primaryStage.setTitle("Simulation 1");
+    primaryStage.setScene(scene);
+    primaryStage.show();
+}
