@@ -1,0 +1,13 @@
+override fun move() {
+    //TODO("Use proportional control to move the robot on top of the target")
+    if(!reached) {
+        velocity = kP_drive * (sqrt((target.getxPos() - xPos).pow(2) + (target.getyPos() - yPos).pow(2)))
+        if(velocity<0.001 && velocity >-0.001){
+            reached = true
+        }
+        absoluteVelocity[0] = velocity* cos(Math.toRadians(heading) - PI /2)
+        absoluteVelocity[1] = velocity* sin(Math.toRadians(heading) - PI /2)
+        xPos -= absoluteVelocity[0]
+        yPos -= absoluteVelocity[1]
+    }
+}

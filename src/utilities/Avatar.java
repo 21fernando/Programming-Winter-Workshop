@@ -9,6 +9,8 @@ public class Avatar extends Rectangle {
     private final RobotBase r;
     private final int size;
     private final Arrow vel;
+    private final Arrow dir;
+    private final int dirLen=20;
 
     /**
      * Class for the graphics related to the robot graphic
@@ -27,6 +29,11 @@ public class Avatar extends Rectangle {
         vel.setStartY(this.r.getSpawnY());
         vel.setEndX(this.r.getSpawnX());
         vel.setEndY(this.r.getSpawnY());
+        dir = new Arrow();
+        dir.setStartX(this.r.getSpawnX());
+        dir.setStartY(this.r.getSpawnY());
+        dir.setEndX(this.r.getSpawnX());
+        dir.setEndY(this.r.getSpawnY()+dirLen);
     }
 
     /**
@@ -43,6 +50,10 @@ public class Avatar extends Rectangle {
         vel.setStartY(r.getYPos());
         vel.setEndX(r.getXPos() + -10*r.getVelocity()*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));
         vel.setEndY(r.getYPos() + -10*r.getVelocity()*Math.sin(Math.toRadians(r.getHeading())-(Math.PI/2)));
+        dir.setStartX(r.getXPos());
+        dir.setStartY(r.getYPos());
+        dir.setEndX(r.getXPos() + dirLen*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));
+        dir.setEndY(r.getYPos() + dirLen*Math.sin(Math.toRadians(r.getHeading())-(Math.PI/2)));
     }
 
     /**
@@ -52,5 +63,14 @@ public class Avatar extends Rectangle {
     public Arrow getVel(){
         return this.vel;
     }
+
+    /**
+     * Accessor method for robot's velocity vector
+     * @return Robot's velocity vector Line object
+     */
+    public Arrow getDir(){
+        return this.dir;
+    }
+
 
 }

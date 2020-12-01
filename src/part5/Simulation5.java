@@ -1,4 +1,4 @@
-package part2;
+package part5;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import part3.Robot3;
 import utilities.Avatar;
 import utilities.Target;
 
@@ -15,9 +16,9 @@ import java.util.stream.Collectors;
 /**
  * Class simulates the motion of a robot
  */
-public class Simulation2 extends Application {
+public class Simulation5 extends Application {
 
-    private final Robot2 robot;
+    private final Robot3 robot;
     private final Target target;
     private final Pane root;
     private final Avatar avatar;
@@ -28,9 +29,9 @@ public class Simulation2 extends Application {
     /**
      * Constructor for the simulation
      */
-    public Simulation2(){
+    public Simulation5(){
         target = new Target(300,300,0,20, Color.RED);
-        robot = new Robot2(new double[]{300,100}, 40, target);
+        robot = new Robot3(new double[]{300,100}, 40, target);
         root = new Pane();
         avatar = new Avatar(robot, robot.getSize(), Color.AQUAMARINE);
         angularVel = 0;
@@ -81,7 +82,7 @@ public class Simulation2 extends Application {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        Simulation2 t = new Simulation2();
+        Simulation5 t = new Simulation5();
         launch(args);
     }
 }

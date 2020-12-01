@@ -39,7 +39,7 @@ public class Simulation1 extends Application {
         root.setPrefSize(600,600);
         root.setMinSize(600,600);
         root.setMaxSize(600,600);
-        root.getChildren().addAll(avatar, avatar.getVel());
+        root.getChildren().addAll(avatar, avatar.getVel(), avatar.getDir());
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -68,12 +68,30 @@ public class Simulation1 extends Application {
         Scene scene = new Scene(createContent());
         scene.setOnKeyPressed(e->{
             switch(e.getCode()){
-                //TODO: Write code for key presses
+                case LEFT:
+                    robot.setAngularVelocity(-3);
+                    break;
+                case RIGHT:
+                    robot.setAngularVelocity(3);
+                    break;
+                case UP:
+                    robot.setAcceleration(-0.4);
+                    break;
+                case DOWN:
+                    robot.setAcceleration(0.4);
+                    break;
             }
         });
         scene.setOnKeyReleased(e->{
             switch(e.getCode()){
-                //TODO: Write code for key releases
+                case LEFT:
+                case RIGHT:
+                    robot.setAngularVelocity(0);
+                    break;
+                case UP:
+                case DOWN:
+                    robot.setAcceleration(0);
+                    break;
             }
         });
         primaryStage.setTitle("Simulation 1");

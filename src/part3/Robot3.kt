@@ -1,8 +1,8 @@
-package part2
+package part3
 import utilities.RobotBase
 import utilities.Target
 
-class Robot2(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
+class Robot3(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
 
     /**
      * Rotates the robot

@@ -1,8 +1,8 @@
-package part2
+package part4
 import utilities.RobotBase
 import utilities.Target
 
-class Robot2(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
+class Robot4(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
 
     /**
      * Rotates the robot
@@ -15,7 +15,7 @@ class Robot2(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
      * Moves the robot in a linear fashion
      */
     override fun move() {
-        //TODO("Use proportional control to move the robot on top of the target")
+        //TODO("Use proportional derivative control to move the robot on top of the target")
     }
 
 }
