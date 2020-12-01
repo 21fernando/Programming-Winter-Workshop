@@ -3,6 +3,7 @@ import utilities.RobotBase
 import utilities.Target
 
 class Robot3(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
+    private val target = t
 
     /**
      * Rotates the robot

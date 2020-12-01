@@ -69,28 +69,30 @@ public class Simulation1 extends Application {
         scene.setOnKeyPressed(e->{
             switch(e.getCode()){
                 case LEFT:
-                    robot.setAngularVelocity(-3);
-                    break;
+                    robot.setLeftButtonDown(true);
                 case RIGHT:
-                    robot.setAngularVelocity(3);
+                    robot.setRightButtonDown(true);
                     break;
                 case UP:
-                    robot.setAcceleration(-0.4);
+                    robot.setUpButtonDown(true);
                     break;
                 case DOWN:
-                    robot.setAcceleration(0.4);
+                    robot.setDownButtonDown(true);
                     break;
             }
         });
         scene.setOnKeyReleased(e->{
             switch(e.getCode()){
                 case LEFT:
+                    robot.setLeftButtonDown(false);
                 case RIGHT:
-                    robot.setAngularVelocity(0);
+                    robot.setRightButtonDown(false);
                     break;
                 case UP:
+                    robot.setUpButtonDown(false);
+                    break;
                 case DOWN:
-                    robot.setAcceleration(0);
+                    robot.setDownButtonDown(false);
                     break;
             }
         });

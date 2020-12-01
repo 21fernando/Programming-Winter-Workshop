@@ -61,7 +61,6 @@ public class Simulation2 extends Application {
         t+=0.016;
         avatar.move();
         target.move();
-        System.out.println(robot.getHeading());
     }
 
     /**

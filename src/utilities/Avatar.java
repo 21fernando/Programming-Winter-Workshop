@@ -4,6 +4,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
+import java.util.Arrays;
+
 public class Avatar extends Rectangle {
 
     private final RobotBase r;
@@ -42,14 +44,16 @@ public class Avatar extends Rectangle {
     public void move(){
         r.rotate();
         r.move();
+        r.simulate();
         Rotate rotate = new Rotate(r.getAngularVelocity(), getX()+size/2.0, getY()+size/2.0);
         rotate.setAngle(r.getAngularVelocity());
         getTransforms().addAll(rotate);
-        setY(getY() + r.getVelocity());
+        setY(r.getYPos() - size/2.0);
+        setX(r.getXPos() - size/2.0);
         vel.setStartX(r.getXPos());
         vel.setStartY(r.getYPos());
-        vel.setEndX(r.getXPos() + -10*r.getVelocity()*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));
-        vel.setEndY(r.getYPos() + -10*r.getVelocity()*Math.sin(Math.toRadians(r.getHeading())-(Math.PI/2)));
+        vel.setEndX(r.getXPos() + 10*r.getLinearVelocity()*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));
+        vel.setEndY(r.getYPos() + 10*r.getLinearVelocity()*Math.sin(Math.toRadians(r.getHeading())-(Math.PI/2)));
         dir.setStartX(r.getXPos());
         dir.setStartY(r.getYPos());
         dir.setEndX(r.getXPos() + dirLen*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));
