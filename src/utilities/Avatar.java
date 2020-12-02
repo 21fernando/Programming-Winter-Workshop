@@ -52,8 +52,9 @@ public class Avatar extends Rectangle {
         setX(r.getXPos() - size/2.0);
         vel.setStartX(r.getXPos());
         vel.setStartY(r.getYPos());
-        vel.setEndX(r.getXPos() + 10*r.getLinearVelocity()*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));
-        vel.setEndY(r.getYPos() + 10*r.getLinearVelocity()*Math.sin(Math.toRadians(r.getHeading())-(Math.PI/2)));
+//        System.out.println(r.getXVel() + ", " + r.getYVel());
+        vel.setEndX(r.getXPos() + r.getXVel()*10);
+        vel.setEndY(r.getYPos() + r.getYVel()*10);
         dir.setStartX(r.getXPos());
         dir.setStartY(r.getYPos());
         dir.setEndX(r.getXPos() + dirLen*Math.cos(Math.toRadians(r.getHeading())-(Math.PI/2)));

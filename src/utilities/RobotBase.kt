@@ -1,9 +1,6 @@
 package utilities
 
-import kotlin.math.PI
-import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.sin
+import kotlin.math.*
 
 /**
  * Contains the information for a robot and calculate the physics behind its motion
@@ -18,9 +15,9 @@ abstract class RobotBase(spawn: DoubleArray, sz: Int) {
     val absoluteVelocity: Array<Double>
         get() = arrayOf(xVel, yVel)
     val xVel
-        get() = linearVelocity* cos(Math.toRadians(heading) - PI /2)
+        get() = linearVelocity * cos(Math.toRadians(heading) - PI / 2)
     val yVel
-        get() = linearVelocity* sin(Math.toRadians(heading) - PI /2)
+        get() = linearVelocity * sin(Math.toRadians(heading) - PI / 2)
     val terminalVelocity = 15.0
 
     var angularVelocity = 0.0
@@ -35,10 +32,10 @@ abstract class RobotBase(spawn: DoubleArray, sz: Int) {
     var heading = 0.0
         private set
 
-    val friction = 0.3
+    open val friction = 0.3
     val size = sz
     
-    val maxLinearAcceleration = 2.0
+    val maxLinearAcceleration = 4.0
     val maxAngularAcceleration = 5.0
     
     private var linearAcceleration = 0.0
@@ -83,6 +80,8 @@ abstract class RobotBase(spawn: DoubleArray, sz: Int) {
     }
     
     open fun simulate(){
+//        angularVelocity = 0.0  // dont want spin momentum right now
+
         // make sure valid accelerations
         linearAcceleration = applyAbsoluteMax(linearAcceleration, maxLinearAcceleration)
         angularAcceleration = applyAbsoluteMax(angularAcceleration, maxAngularAcceleration)
@@ -97,6 +96,7 @@ abstract class RobotBase(spawn: DoubleArray, sz: Int) {
         // move
         val newX = xPos + xVel
         val newY = yPos + yVel
+//        println("Heading: $heading, Vel:($xVel, $yVel), new: ($newX, $newY), old: ($xPos, $yPos)")
         if (inBounds(newX, newY)){
             xPos = newX
             yPos = newY
@@ -109,7 +109,6 @@ abstract class RobotBase(spawn: DoubleArray, sz: Int) {
         angularAcceleration = 0.0
         angularVelocity = 0.0  // dont want spin momentum right now
 //        println("pos: ($xPos, $yPos), vel: $linearVelocity, inBounds: ${inBounds(xPos, yPos)}")
-
 
     }
 
@@ -129,5 +128,12 @@ abstract class RobotBase(spawn: DoubleArray, sz: Int) {
     abstract fun move()
     //rotates the robot
     abstract fun rotate()
+
+    protected fun reachedTarget(target: Target): Boolean {
+        val stopped = linearVelocity<0.001 && linearVelocity >-0.001
+        val distance = sqrt((target.x - xPos).pow(2) + (target.y - yPos).pow(2))
+        return stopped && distance < 0.1
+    }
+
 
 }

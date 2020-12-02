@@ -1,0 +1,8 @@
+override fun move() {
+    if(!reachedTarget(target)) {
+        var distance = sqrt((target.x - xPos).pow(2) + (target.y - yPos).pow(2))
+        if (yPos < target.y) distance *= -1
+        val acc = kP_drive * distance
+        accelerateForward(acc)
+    }
+}
