@@ -45,9 +45,10 @@ public class Avatar extends Rectangle {
         r.rotate();
         r.move();
         r.simulate();
-        Rotate rotate = new Rotate(r.getAngularVelocity(), getX()+size/2.0, getY()+size/2.0);
-        rotate.setAngle(r.getAngularVelocity());
-        getTransforms().addAll(rotate);
+//        Rotate rotate = new Rotate(r.getAngularVelocity(), getX()+size/2.0, getY()+size/2.0);
+//        rotate.setAngle(r.getAngularVelocity());
+//        getTransforms().addAll(rotate);
+        setRotate(r.getHeading());
         setY(r.getYPos() - size/2.0);
         setX(r.getXPos() - size/2.0);
         vel.setStartX(r.getXPos());
