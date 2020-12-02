@@ -8,8 +8,6 @@ init {
 
 override fun move() {
     if (!reachedTarget(target)) {
-        var acc = pid.getOutput(yPos)
-        if (yPos > target.y) acc *= -1
-        accelerateForward(acc)
+        accelerateForward(-pid.getOutput(yPos))
     }
 }
