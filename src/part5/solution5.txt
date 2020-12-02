@@ -1,0 +1,28 @@
+private val target = t
+val pid_d = PID(0.9, 0.001, 0.5) //pid for driving
+val pid_t = PID(0.9, 0.000, 0.00) //pid for turning
+
+init {
+    pid_t.setpoint = atan((target.getyPos()-yPos)/(target.getxPos()-xPos))*(180/PI)-(90)
+    pid_t.reversed = false
+    pid_t.setOutputLimits(maxAngularAcceleration)
+    pid_d.setpoint = 0.0
+    pid_d.reversed = false
+    pid_d.setOutputLimits(maxLinearAcceleration)
+}
+
+override fun rotate() {
+    if(!aligned()) accelerateTurn(pid_t.getOutput(heading-(PI/2)))
+}
+
+override fun move() {
+    if(aligned()){
+        var distance = sqrt((target.getyPos()-yPos).pow(2) + (target.getxPos()-xPos).pow(2))
+        if(yPos>target.getyPos()) distance*=-1
+        accelerateForward(-pid_d.getOutput(distance))
+    }
+}
+
+private fun aligned(): Boolean{
+    return abs(heading-(PI/2) - pid_t.setpoint)<0.0001
+}

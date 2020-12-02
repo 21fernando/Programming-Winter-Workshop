@@ -129,9 +129,9 @@ abstract class RobotBase(spawn: DoubleArray, sz: Int) {
     //rotates the robot
     abstract fun rotate()
 
-    protected fun reachedTarget(target: Target): Boolean {
-        val stopped = linearVelocity<0.001 && linearVelocity >-0.001
-        val distance = sqrt((target.x - xPos).pow(2) + (target.y - yPos).pow(2))
+    protected  fun reachedTarget(target: Target): Boolean {
+        val stopped = linearVelocity<0.01 && linearVelocity >-0.01
+        val distance = sqrt((target.getxPos() - xPos).pow(2) + (target.getyPos() - yPos).pow(2))
         return stopped && distance < 0.1
     }
 

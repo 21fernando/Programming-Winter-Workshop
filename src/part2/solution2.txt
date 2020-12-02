@@ -1,3 +1,5 @@
+val target = t
+
 override fun move() {
     val acc = if (target.y > yPos) -1.0 else 1.0
     accelerateForward(acc)

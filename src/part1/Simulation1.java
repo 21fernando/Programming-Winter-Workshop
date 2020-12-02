@@ -8,9 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import utilities.Avatar;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Class simulates the motion of a robot
  */
@@ -19,9 +16,6 @@ public class Simulation1 extends Application {
     private final Robot1 robot;
     private final Pane root;
     private final Avatar avatar;
-    private final double angularVel; // deg/sec
-    private final double acc;
-    private double t;
 
     /**
      * Constructor for the simulation
@@ -30,9 +24,6 @@ public class Simulation1 extends Application {
         robot = new Robot1(new double[]{300,100}, 40);
         root = new Pane();
         avatar = new Avatar(robot, robot.getSize(), Color.AQUAMARINE);
-        angularVel = 0;
-        acc = 0;
-        t=0;
     }
 
     private Pane createContent(){
@@ -50,12 +41,7 @@ public class Simulation1 extends Application {
         return root;
     }
 
-    private List<Avatar> robots(){
-        return root.getChildren().stream().map(n->(Avatar)n).collect(Collectors.toList());
-    }
-
     private void update(){
-        t+=0.016;
         avatar.move();
     }
 
@@ -68,32 +54,12 @@ public class Simulation1 extends Application {
         Scene scene = new Scene(createContent());
         scene.setOnKeyPressed(e->{
             switch(e.getCode()){
-                case LEFT:
-                    robot.setLeftButtonDown(true);
-                case RIGHT:
-                    robot.setRightButtonDown(true);
-                    break;
-                case UP:
-                    robot.setUpButtonDown(true);
-                    break;
-                case DOWN:
-                    robot.setDownButtonDown(true);
-                    break;
+                //TODO: Add actions for key presses
             }
         });
         scene.setOnKeyReleased(e->{
             switch(e.getCode()){
-                case LEFT:
-                    robot.setLeftButtonDown(false);
-                case RIGHT:
-                    robot.setRightButtonDown(false);
-                    break;
-                case UP:
-                    robot.setUpButtonDown(false);
-                    break;
-                case DOWN:
-                    robot.setDownButtonDown(false);
-                    break;
+                //TODO: add actions for key releases
             }
         });
         primaryStage.setTitle("Simulation 1");

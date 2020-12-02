@@ -1,8 +1,28 @@
+private val target = t
+var kP_drive = 2
+
 override fun move() {
     if(!reachedTarget(target)) {
         var distance = sqrt((target.x - xPos).pow(2) + (target.y - yPos).pow(2))
         if (yPos < target.y) distance *= -1
         val acc = kP_drive * distance
         accelerateForward(acc)
+    }
+}
+
+or using the PID class
+
+private val target = t
+val pid = PID(0.1, 0.0, 0.0)
+
+init {
+    pid.setpoint = target.getyPos()
+    pid.reversed = false
+    pid.setOutputLimits(maxLinearAcceleration)
+}
+
+override fun move() {
+    if(!reachedTarget(target)) {
+        accelerateForward(-pid.getOutput(yPos))
     }
 }

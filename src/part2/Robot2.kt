@@ -1,12 +1,9 @@
 package part2
-import utilities.PID
 import utilities.RobotBase
 import utilities.Target
-import kotlin.math.*
 
 class Robot2(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
-    val target = t
-    override val friction = 0.0
+    private val target = t
 
     /**
      * Rotates the robot
@@ -19,7 +16,6 @@ class Robot2(spawn: DoubleArray, sz: Int, t:Target) : RobotBase(spawn,sz){
      * Moves the robot in a linear fashion
      */
     override fun move() {
-        val acc = if (target.y > yPos) -1.0 else 1.0
-        accelerateForward(acc)
+        TODO("Implement bang bang control here")
     }
 }

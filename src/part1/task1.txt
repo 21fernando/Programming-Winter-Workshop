@@ -1,1 +1,2 @@
-Move the robot around with key presses
+Move the robot around with key presses. You will use the accelerate forward ad accelerate turn methods found in
+RobotBase. Also, you will use the set___buttonDown method.

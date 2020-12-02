@@ -1,0 +1,15 @@
+private val target = t
+val pid = PID(0.9, 0.000, 0.05)
+
+init {
+    pid.setpoint = target.getyPos()
+    pid.reversed = false
+    pid.setOutputLimits(maxLinearAcceleration)
+}
+
+override fun move() {
+    if(!reachedTarget(target)) accelerateForward(-pid.getOutput(yPos))
+}
+
+Feel free to calculate derivative term yourself and add it into the manually defined PID from last time. Because this
+is more math intensive, we figured it would be simplest to use this PID class.

@@ -6,12 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import part3.Robot3;
 import utilities.Avatar;
 import utilities.Target;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Class simulates the motion of a robot
@@ -22,9 +18,6 @@ public class Simulation4 extends Application {
     private final Target target;
     private final Pane root;
     private final Avatar avatar;
-    private final double angularVel; // deg/sec
-    private final double acc;
-    private double t;
 
     /**
      * Constructor for the simulation
@@ -34,9 +27,6 @@ public class Simulation4 extends Application {
         robot = new Robot4(new double[]{300,100}, 40, target);
         root = new Pane();
         avatar = new Avatar(robot, robot.getSize(), Color.AQUAMARINE);
-        angularVel = 0;
-        acc = 0;
-        t=0;
     }
 
     private Pane createContent(){
@@ -54,15 +44,9 @@ public class Simulation4 extends Application {
         return root;
     }
 
-    private List<Avatar> robots(){
-        return root.getChildren().stream().map(n->(Avatar)n).collect(Collectors.toList());
-    }
-
     private void update(){
-        t+=0.016;
         avatar.move();
         target.move();
-        System.out.println(robot.getHeading());
     }
 
     /**
@@ -72,7 +56,7 @@ public class Simulation4 extends Application {
     @Override
     public void start(Stage primaryStage){
         Scene scene = new Scene(createContent());
-        primaryStage.setTitle("Simulation 2");
+        primaryStage.setTitle("Simulation 4");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
