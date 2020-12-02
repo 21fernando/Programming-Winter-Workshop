@@ -1,0 +1,14 @@
+val pid = PID(0.3, 0.0, 0.5)
+
+init {
+    pid.setpoint = target.y
+    pid.setOutputLimits(maxLinearVelocity)
+}
+
+fun move() {
+    if (!reachedTarget(target)) {
+        var acc = pid.getOutput(yPos)
+        if (yPos > target.y) acc *= -1
+        accelerateForward(acc)
+    }
+}
