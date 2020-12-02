@@ -1,11 +1,12 @@
 val pid = PID(0.3, 0.0, 0.5)
+val target = t
 
 init {
     pid.setpoint = target.y
-    pid.setOutputLimits(maxLinearVelocity)
+    pid.setOutputLimits(maxLinearAcceleration)
 }
 
-fun move() {
+override fun move() {
     if (!reachedTarget(target)) {
         var acc = pid.getOutput(yPos)
         if (yPos > target.y) acc *= -1

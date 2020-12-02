@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class Simulation5 extends Application {
 
-    private final Robot3 robot;
+    private final Robot5 robot;
     private final Target target;
     private final Pane root;
     private final Avatar avatar;
@@ -31,7 +31,7 @@ public class Simulation5 extends Application {
      */
     public Simulation5(){
         target = new Target(300,300,0,20, Color.RED);
-        robot = new Robot3(new double[]{300,100}, 40, target);
+        robot = new Robot5(new double[]{300,100}, 40, target);
         root = new Pane();
         avatar = new Avatar(robot, robot.getSize(), Color.AQUAMARINE);
         angularVel = 0;
